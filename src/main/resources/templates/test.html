@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,6 +7,20 @@
 <body>
 <p th:text="${xx}">3333</p></body>
 <hr>
-用户添加<a href="add">用户添加</a>
-用户删除<a href="delete">用户删除</a>
+<div shiro:hasPermission = "user:add">
+    用户添加<a href="add">用户添加</a>
+</div>
+<div shiro:hasPermission = "user:delete">
+    用户删除<a href="delete">用户删除</a>
+</div>
+
+<p th:text="${msg}" style="color: red"></p>
+
+<form method="post" action="/toLogin">
+    用户名<input type="text" name="name">
+    <br>
+    密码<input type="password" name="psw">
+    <br>
+    <input type="submit" value="登录">
+</form>
 </html>

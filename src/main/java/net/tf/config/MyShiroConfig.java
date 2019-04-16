@@ -1,5 +1,6 @@
 package net.tf.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import net.tf.shiro.MyShiroRealm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -30,10 +31,12 @@ public class MyShiroConfig {
         //保证次序使用LinkedHashMap
         Map<String,String> map = new LinkedHashMap<>();
         //需要注意的是，一定要加上斜杠
-        map.put("/add", "authc");
+        map.put("/add", "perms[user:add]");
         map.put("/delete", "authc");
         //设置跳转登录页面
         filterFactoryBean.setLoginUrl("/login");
+        //设置未授权的页面
+        filterFactoryBean.setUnauthorizedUrl("/unAuth");
         //设置Shrio过滤器:
         filterFactoryBean.setFilterChainDefinitionMap(map);
         return filterFactoryBean;
@@ -60,5 +63,13 @@ public class MyShiroConfig {
     @Bean(name = "realm")
     public MyShiroRealm getRealm() {
         return new MyShiroRealm();
+    }
+
+    /**
+     * 配置ShiroDialect
+     */
+    @Bean(name = "shiroDialect")
+    public ShiroDialect getShiroDialect() {
+        return new ShiroDialect();
     }
 }
