@@ -29,7 +29,7 @@ public class MyShiroConfig {
         //设置安全管理器
         filterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         //保证次序使用LinkedHashMap
-        Map<String,String> map = new LinkedHashMap<>();
+        Map<String, String> map = new LinkedHashMap<>();
         //需要注意的是，一定要加上斜杠
         map.put("/add", "perms[user:add]");
         map.put("/delete", "authc");
@@ -39,6 +39,7 @@ public class MyShiroConfig {
         filterFactoryBean.setUnauthorizedUrl("/unAuth");
         //设置Shrio过滤器:
         filterFactoryBean.setFilterChainDefinitionMap(map);
+        //
         return filterFactoryBean;
     }
 
